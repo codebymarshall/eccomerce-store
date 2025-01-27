@@ -1,13 +1,12 @@
 "use client";
 
 import { useCart } from "@/providers/cart-provider";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 
-export default function SuccessPage() {
-  const { clearCart } = useCart();
+function SuccessContent() {
   const searchParams = useSearchParams();
+  const { clearCart } = useCart();
   const sessionId = searchParams.get("session_id");
 
   useEffect(() => {
@@ -17,25 +16,28 @@ export default function SuccessPage() {
   }, [sessionId, clearCart]);
 
   return (
-    <div className="bg-white">
-      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Thank you for your order!
-          </h1>
-          <p className="mt-4 text-lg text-gray-500">
-            Your payment has been successfully processed.
+    <div className="flex items-center justify-center min-h-[60vh]">
+      <div className="relative mx-auto w-full max-w-[50rem] bg-white">
+        <div className="p-8 text-center sm:p-12">
+          <p className="text-sm font-semibold uppercase tracking-widest text-pink-500">
+            Your order was completed
           </p>
-          <div className="mt-10">
-            <Link
-              href="/products"
-              className="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700"
-            >
-              Continue Shopping
-            </Link>
-          </div>
+          <h1 className="mt-6 text-4xl font-bold text-gray-900">
+            Thanks for your purchase!
+          </h1>
+          <p className="mx-auto mt-6 max-w-md text-gray-500">
+            Check your email for the receipt.
+          </p>
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SuccessPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SuccessContent />
+    </Suspense>
   );
 }

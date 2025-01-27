@@ -34,7 +34,7 @@ export default function SignInPage() {
       router.refresh();
       toast.success("Signed in successfully");
     } catch (error) {
-      toast.error("Something went wrong");
+      toast.error(`Something went wrong: ${error}`);
     } finally {
       setIsLoading(false);
     }

@@ -19,7 +19,7 @@ export default function Navbar() {
       router.refresh();
       toast.success("Signed out successfully");
     } catch (error) {
-      toast.error("Error signing out");
+      toast.error(`Error signing out: ${error}`);
     }
   };
 

@@ -1,36 +1,40 @@
 version: "3.8"
 
 services:
-  db:
-    image: postgres:15
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: ecommerce
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
   app:
     build:
       context: .
       dockerfile: Dockerfile
+    volumes:
+      - .:/workspace:cached
+      - /workspace/node_modules
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/ecommerce
-      NEXTAUTH_SECRET: your-secret-key
-      NEXTAUTH_URL: http://localhost:3000
-      STRIPE_PUBLIC_KEY: your-stripe-public-key
-      STRIPE_SECRET_KEY: your-stripe-secret-key
-      STRIPE_WEBHOOK_SECRET: your-stripe-webhook-secret
-    volumes:
-      - .:/app
-      - /app/node_modules
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+      - NEXTAUTH_SECRET=your-secret-key
+      - NEXTAUTH_URL=http://localhost:3000
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    command: sh -c "npx prisma migrate deploy && npm run dev"
+
+  db:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
-  postgres_data:
+  postgres-data:
