@@ -1,14 +1,17 @@
-FROM mcr.microsoft.com/devcontainers/javascript-node:18
+FROM node:20-slim
 
 WORKDIR /workspace
 
-# Switch to root for initial setup
-USER root
+# Install basic development tools
+RUN apt-get update && apt-get install -y \
+    git \
+    procps \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies as root
+# Install dependencies
 RUN npm install
 
 # Copy the rest of the application
@@ -17,14 +20,8 @@ COPY . .
 # Generate Prisma client
 RUN npx prisma generate
 
-# Create .next directory and set permissions
-RUN mkdir -p .next && chown -R node:node .next
-
-# Switch back to node user
-USER node
-
-# Build the application
-RUN npm run build
+# Create .next directory
+RUN mkdir -p .next
 
 # Expose port
 EXPOSE 3000

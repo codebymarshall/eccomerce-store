@@ -1,73 +1,126 @@
+import ProductCard from "@/components/product/ProductCard";
+import Button from "@/components/ui/Button";
+import Container from "@/components/ui/Container";
+import { prisma } from "@/lib/db/prisma";
+import { ProductWithCategory } from "@/types";
 import Link from "next/link";
 
-export default function Home() {
-  // This would typically fetch from your database
-  const featuredProducts = [
-    {
-      id: "1",
-      name: "Premium Headphones",
-      price: 299.99,
-      image: "/images/headphones.jpg",
-      description: "High-quality wireless headphones with noise cancellation",
+const getFeaturedProducts = async (): Promise<ProductWithCategory[]> => {
+  const products = await prisma.product.findMany({
+    where: {
+      isFeatured: true,
     },
-    {
-      id: "2",
-      name: "Smart Watch",
-      price: 199.99,
-      image: "/images/smartwatch.jpg",
-      description: "Feature-rich smartwatch with health tracking",
+    include: {
+      category: true,
     },
-    {
-      id: "3",
-      name: "Wireless Earbuds",
-      price: 149.99,
-      image: "/images/earbuds.jpg",
-      description: "True wireless earbuds with premium sound quality",
-    },
-  ];
+    take: 8,
+  });
+
+  return products;
+};
+
+export default async function Home() {
+  const featuredProducts = await getFeaturedProducts();
 
   return (
-    <div className="bg-white">
-      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-          Featured Products
-        </h2>
+    <div className="pb-10">
+      {/* Hero Section */}
+      <div className="bg-gray-100 py-20 sm:py-24">
+        <Container>
+          <div className="flex flex-col items-center text-center">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-cyan-500">
+              Shop the Latest Products
+            </h1>
+            <p className="mt-6 text-lg leading-8 text-gray-600 max-w-2xl">
+              Discover our curated collection of high-quality products for your everyday needs.
+              From electronics to fashion, we've got you covered.
+            </p>
+            <div className="mt-10 flex items-center justify-center gap-x-6">
+              <Button href="/products" size="lg">
+                Shop Now
+              </Button>
+              <Link
+                href="/about"
+                className="text-sm font-semibold leading-6 text-cyan-500"
+              >
+                Learn more <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </div>
 
-        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-          {featuredProducts.map((product) => (
-            <div key={product.id} className="group relative">
-              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80">
-                <div className="h-full w-full bg-gray-200 animate-pulse" />
+      {/* Featured Products */}
+      <Container>
+        <div className="py-12">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-2xl font-bold tracking-tight text-cyan-500">
+              Featured Products
+            </h2>
+            <Link
+              href="/products"
+              className="text-sm font-semibold leading-6 text-cyan-500"
+            >
+              View all <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {featuredProducts.length > 0 ? (
+              featuredProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))
+            ) : (
+              <div className="col-span-full text-center py-10">
+                <p className="text-slate-500">No featured products available.</p>
               </div>
-              <div className="mt-4 flex justify-between">
-                <div>
-                  <h3 className="text-sm text-gray-700">
-                    <Link href={`/products/${product.id}`}>
-                      <span aria-hidden="true" className="absolute inset-0" />
-                      {product.name}
-                    </Link>
-                  </h3>
-                  <p className="mt-1 text-sm text-gray-500">
-                    {product.description}
-                  </p>
+            )}
+          </div>
+        </div>
+      </Container>
+
+      {/* Categories */}
+      <Container>
+        <div className="py-12">
+          <h2 className="text-2xl font-bold tracking-tight text-cyan-500 mb-8">
+            Shop by Category
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="relative rounded-lg overflow-hidden group h-64">
+              <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-40 transition"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <h3 className="text-xl font-semibold text-white mb-2">Electronics</h3>
+                  <Button href="/products?category=electronics" variant="outline" className="bg-white text-slate-500">
+                    Shop Now
+                  </Button>
                 </div>
-                <p className="text-sm font-medium text-gray-900">
-                  ${product.price}
-                </p>
               </div>
             </div>
-          ))}
+            <div className="relative rounded-lg overflow-hidden group h-64">
+              <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-40 transition"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <h3 className="text-xl font-semibold text-white mb-2">Clothing</h3>
+                  <Button href="/products?category=clothing" variant="outline" className="bg-white text-slate-500">
+                    Shop Now
+                  </Button>
+                </div>
+              </div>
+            </div>
+            <div className="relative rounded-lg overflow-hidden group h-64">
+              <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-40 transition"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <h3 className="text-xl font-semibold text-white mb-2">Home & Garden</h3>
+                  <Button href="/products?category=home" variant="outline" className="bg-white text-slate-500">
+                    Shop Now
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div className="mt-12 text-center">
-          <Link
-            href="/products"
-            className="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700"
-          >
-            View All Products
-          </Link>
-        </div>
-      </div>
+      </Container>
     </div>
   );
 }

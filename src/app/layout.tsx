@@ -1,36 +1,40 @@
-import Navbar from "@/components/navbar";
-import AuthProvider from "@/providers/auth-provider";
-import { CartProvider } from "@/providers/cart-provider";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { Toaster } from "react-hot-toast";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+import Footer from "@/components/ui/Footer";
+import NavBar from "@/components/ui/NavBar";
+import AuthProvider from "@/providers/AuthProvider";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
-  title: "E-commerce Store",
-  description: "A modern e-commerce store built with Next.js",
+  title: "Next.js E-Commerce | Modern Shopping Experience",
+  description: "A modern e-commerce store built with Next.js, Tailwind CSS, and TypeScript",
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+      >
         <AuthProvider>
-          <CartProvider>
-            <div className="min-h-screen bg-gray-100">
-              <Navbar />
-              <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-                {children}
-              </main>
-            </div>
-            <Toaster position="bottom-right" />
-          </CartProvider>
+          <NavBar />
+          <main className="flex-grow">{children}</main>
+          <Footer />
         </AuthProvider>
       </body>
     </html>

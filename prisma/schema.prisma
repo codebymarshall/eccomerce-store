@@ -13,69 +13,39 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// User model for authentication
 model User {
   id            String    @id @default(cuid())
   name          String?
   email         String    @unique
   emailVerified DateTime?
   image         String?
-  password      String?
+  password      String
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-  orders        Order[]
+  role          Role      @default(USER)
+  
+  // Relations
   accounts      Account[]
   sessions      Session[]
+  orders        Order[]
+  reviews       Review[]
 }
 
-model Product {
-  id          String   @id @default(cuid())
-  name        String
-  description String
-  price       Float
-  image       String
-  category    String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  OrderItem   OrderItem[]
-}
-
-model Order {
-  id        String      @id @default(cuid())
-  userId    String
-  user      User        @relation(fields: [userId], references: [id])
-  items     OrderItem[]
-  total     Float
-  status    String
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-}
-
-model OrderItem {
-  id        String   @id @default(cuid())
-  orderId   String
-  order     Order    @relation(fields: [orderId], references: [id])
-  productId String
-  product   Product  @relation(fields: [productId], references: [id])
-  quantity  Int
-  price     Float
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-// NextAuth.js Models
+// NextAuth related models
 model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -96,4 +66,91 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+// Product related models
+model Product {
+  id              String    @id @default(cuid())
+  name            String
+  description     String
+  price           Decimal   @db.Decimal(10, 2)
+  images          String[]
+  inventory       Int       @default(0)
+  isFeatured      Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  // Relations
+  category        Category  @relation(fields: [categoryId], references: [id])
+  categoryId      String
+  orderItems      OrderItem[]
+  reviews         Review[]
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  image       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relations
+  products    Product[]
+}
+
+model Order {
+  id              String    @id @default(cuid())
+  userId          String?
+  status          String    @default("PROCESSING") // PROCESSING, SHIPPED, DELIVERED, CANCELLED
+  total           Decimal   @db.Decimal(10, 2)
+  paymentIntentId String?
+  shippingAddress Json?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  // Relations
+  user            User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  orderItems      OrderItem[]
+}
+
+model OrderItem {
+  id        String    @id @default(cuid())
+  quantity  Int
+  price     Decimal   @db.Decimal(10, 2)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  
+  // Relations
+  order     Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId   String
+  product   Product   @relation(fields: [productId], references: [id], onDelete: Restrict)
+  productId String
+}
+
+model Review {
+  id          String   @id @default(cuid())
+  rating      Int
+  comment     String?  @db.Text
+  userId      String
+  productId   String
+  createdAt   DateTime @default(now())
+  
+  // Relations
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+// Enums
+enum Role {
+  USER
+  ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELED
 }

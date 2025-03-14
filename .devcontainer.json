@@ -14,6 +14,6 @@
   },
   "forwardPorts": [3000, 5432],
   "postCreateCommand": "npm install",
-  "postStartCommand": "npx prisma generate && npx prisma migrate deploy",
+  "postStartCommand": "npx prisma generate && npx prisma migrate deploy && npm run dev",
   "waitFor": "postCreateCommand"
 }
