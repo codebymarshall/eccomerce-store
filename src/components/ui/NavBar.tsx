@@ -31,14 +31,24 @@ const NavBar = ({ user }: NavBarProps) => {
       href: "/products",
       active: pathname === "/products" || pathname.includes("/products/"),
     },
+    {
+      label: "About",
+      href: "/about",
+      active: pathname === "/about",
+    },
+    {
+      label: "Contact",
+      href: "/Contact",
+      active: pathname === "/Contact",
+    },
   ];
 
   return (
-    <div className="border-b">
+    <div className="border-b bg-stone-800">
       <Container>
         <div className="relative px-4 sm:px-6 flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Link href="/" className="font-bold text-xl">
+            <Link href="/" className="font-bold text-xl text-stone-200 hover:text-stone-500">
               STORE
             </Link>
             <nav className="hidden md:flex ml-10 space-x-4">
@@ -48,7 +58,7 @@ const NavBar = ({ user }: NavBarProps) => {
                   href={route.href}
                   className={cn(
                     "text-sm font-medium transition-colors",
-                    route.active ? "text-black" : "text-neutral-500 hover:text-black"
+                    route.active ? "text-stone-500" : "text-stone-200 hover:text-stone-500"
                   )}
                 >
                   {route.label}
@@ -61,7 +71,7 @@ const NavBar = ({ user }: NavBarProps) => {
             <Link href="/cart" className="relative">
               <ShoppingBag size={20} />
               {totalItems > 0 && (
-                <span className="absolute -top-1 -right-2 w-5 h-5 bg-black text-white rounded-full text-xs flex items-center justify-center">
+                <span className="absolute -top-1 -right-2 w-5 h-5 bg-stone-500 text-stone-200 rounded-full text-xs flex items-center justify-center">
                   {totalItems}
                 </span>
               )}
@@ -72,22 +82,22 @@ const NavBar = ({ user }: NavBarProps) => {
                 <button className="flex items-center space-x-1">
                   <User size={20} />
                 </button>
-                <div className="absolute right-0 top-full mt-2 w-40 bg-white border shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+                <div className="absolute right-0 top-full mt-2 w-40 bg-stone-200 border shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
                   <div className="py-1">
-                    <Link href="/account" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    <Link href="/account" className="block px-4 py-2 text-sm text-stone-500 hover:bg-stone-100">
                       My Account
                     </Link>
-                    <Link href="/account/orders" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    <Link href="/account/orders" className="block px-4 py-2 text-sm text-stone-500 hover:bg-stone-100">
                       My Orders
                     </Link>
                     {user?.role === "ADMIN" && (
-                      <Link href="/admin" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      <Link href="/admin" className="block px-4 py-2 text-sm text-stone-500 hover:bg-stone-100 cursor-pointer">
                         Admin
                       </Link>
                     )}
                     <button
                       onClick={() => signOut()}
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="block w-full text-left px-4 py-2 text-sm text-stone-500 hover:bg-stone-100 cursor-pointer"
                     >
                       Sign Out
                     </button>

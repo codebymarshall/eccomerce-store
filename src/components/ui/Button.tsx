@@ -15,13 +15,13 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, children, variant = "primary", size = "md", isLoading, href, ...props }, ref) => {
     const baseStyles = cn(
-      "inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none",
+      "inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 cursor-pointer",
       {
-        "bg-black text-white hover:bg-gray-800": variant === "primary",
-        "bg-gray-200 text-gray-900 hover:bg-gray-300": variant === "secondary",
-        "border border-gray-300 bg-transparent hover:bg-gray-100": variant === "outline",
+        "bg-stone-700 text-stone-100 hover:bg-stone-800": variant === "primary",
+        "bg-stone-200 text-stone-900 hover:bg-stone-300": variant === "secondary",
+        "border border-stone-300 bg-transparent hover:bg-stone-100": variant === "outline",
         "bg-transparent hover:bg-gray-100": variant === "ghost",
-        "bg-red-600 text-white hover:bg-red-700": variant === "danger",
+        "bg-red-800 text-white hover:bg-red-700": variant === "danger",
         "h-8 px-3 text-sm": size === "sm",
         "h-10 py-2 px-4": size === "md",
         "h-12 px-6 text-lg": size === "lg",
@@ -36,7 +36,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           className={baseStyles}
         >
           {isLoading ? (
-            <div className="h-5 w-5 border-2 border-gray-300 border-t-white rounded-full animate-spin mr-2" />
+            <div className="h-5 w-5 border-2 border-stone-300 border-t-stone-100 rounded-full animate-spin mr-2" />
           ) : null}
           {children}
         </Link>
@@ -51,7 +51,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {isLoading ? (
-          <div className="h-5 w-5 border-2 border-gray-300 border-t-white rounded-full animate-spin mr-2" />
+          <div className="h-5 w-5 border-2 border-stone-300 border-t-stone-100 rounded-full animate-spin mr-2" />
         ) : null}
         {children}
       </button>
