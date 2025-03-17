@@ -48,10 +48,10 @@ const ProductFilters = ({ currentCategory }: ProductFiltersProps) => {
         <div className="space-y-2">
           <button
             onClick={() => handleCategoryChange("all")}
-            className={`block w-full text-left px-4 py-2 rounded-lg ${
+            className={`block w-full text-left px-4 py-2 rounded-lg text-stone-100 ${
               !currentCategory
-                ? "bg-black text-white"
-                : "hover:bg-gray-100"
+                ? "bg-stone-900 text-stone-100"
+                : "hover:bg-stone-500"
             }`}
           >
             All Products
@@ -60,10 +60,10 @@ const ProductFilters = ({ currentCategory }: ProductFiltersProps) => {
             <button
               key={category.id}
               onClick={() => handleCategoryChange(category.name)}
-              className={`block w-full text-left px-4 py-2 rounded-lg ${
+              className={`block w-full text-left px-4 py-2 rounded-lg text-stone-100${
                 currentCategory === category.name
-                  ? "bg-black text-white"
-                  : "hover:bg-gray-100"
+                  ? "bg-stone-900 text-stone-100"
+                  : "hover:bg-stone-500"
               }`}
             >
               {category.name}
@@ -74,11 +74,11 @@ const ProductFilters = ({ currentCategory }: ProductFiltersProps) => {
 
       {/* Sort */}
       <div>
-        <h3 className="text-lg font-semibold mb-4">Sort By</h3>
+        <h3 className="text-lg font-semibold mb-4 text-stone-500">Sort By</h3>
         <select
           value={searchParams.get("sort") || "newest"}
           onChange={(e) => handleSortChange(e.target.value)}
-          className="w-full px-4 py-2 border rounded-lg"
+          className="w-full px-4 py-2 border-4 rounded-lg bg-stone-900 text-stone-100 border-stone-500"
         >
           <option value="newest">Newest</option>
           <option value="price_asc">Price: Low to High</option>

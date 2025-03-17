@@ -26,43 +26,36 @@ export default async function Home() {
   return (
     <div className="pb-10 bg-stone-100">
       {/* Hero Section */}
-      <div className="relative w-full max-w-[2000px] min-w-[800px] mx-auto">
-        <div className="relative w-full" style={{ 
-          maxHeight: '1200px',
-          minHeight: '168.75px',
-          height: 'auto',
-          overflow: 'hidden'
-        }}>
+      <div className="relative w-full max-w-[2000px] mx-auto">
+        <div className="relative w-full min-h-[450px] h-[450px] sm:h-[500px] md:h-[550px] lg:h-[600px] xl:h-[800px]">
           <Image
             src="/images/home.jpg"
             alt="Home background"
-            width={1920}
-            height={1080}
-            layout="responsive"
+            fill
             priority
-            style={{
-              objectFit: 'contain',
-            }}
+            sizes="100vw"
+            className="object-cover object-center"
+            quality={90}
           />
         </div>
         
-        <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-6 md:p-8">
-          <Container>
-            <div className="flex flex-col items-center text-center bg-white/80 backdrop-blur-sm p-4 sm:p-6 rounded-lg shadow-md">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-stone-800">
+        <div className="absolute inset-0 flex items-center justify-center p-4 pt-16 sm:p-6 md:p-8">
+          <Container className="w-full">
+            <div className="flex flex-col items-center justify-between text-center bg-stone-100/80 backdrop-blur-sm p-3 sm:p-4 md:p-6 rounded-lg shadow-md max-w-lg md:max-w-2xl mx-auto">
+              <h1 className="text-lg sm:text-xl md:text-3xl lg:text-4xl font-bold tracking-tight text-stone-800">
                 Shop the Latest Products
               </h1>
-              <p className="mt-3 sm:mt-4 md:mt-6 text-sm sm:text-base md:text-lg leading-6 md:leading-8 text-stone-700 max-w-xs sm:max-w-lg md:max-w-2xl mx-auto">
+              <p className="mt-2 sm:mt-3 md:mt-4 text-xs sm:text-sm md:text-base leading-5 md:leading-7 text-stone-700">
                 Discover our curated collection of high-quality products for your everyday needs.
                 From electronics to fashion, we've got you covered.
               </p>
-              <div className="mt-6 sm:mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-x-6">
-                <Button href="/products" size="lg" className="w-full sm:w-auto">
+              <div className="mt-3 sm:mt-4 md:mt-8 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-x-4">
+                <Button href="/products" size="lg" variant="primary" className="w-full sm:w-auto text-sm sm:text-base">
                   Shop Now
                 </Button>
                 <Link
                   href="/about"
-                  className="mt-3 sm:mt-0 text-sm font-semibold leading-6 text-stone-700"
+                  className="mt-2 sm:mt-0 text-xs sm:text-sm font-semibold leading-6 text-stone-700"
                 >
                   Learn more <span aria-hidden="true">→</span>
                 </Link>
@@ -73,16 +66,16 @@ export default async function Home() {
       </div>
 
       {/* Featured Products */}
-      <div className="bg-stone-800 py-20 sm:py-24">
+      <div className="bg-stone-100 py-20 sm:py-24">
         <Container>
           <div className="py-12">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold tracking-tight text-stone-100">
+              <h2 className="text-2xl font-bold tracking-tight text-stone-500">
                 Featured Products
               </h2>
               <Link
                 href="/products"
-                className="text-sm font-semibold leading-6 text-stone-100 hover:text-stone-500"
+                className="text-sm font-semibold leading-6 text-stone-500 hover:text-stone-500"
               >
                 View all <span aria-hidden="true">→</span>
               </Link>
@@ -94,7 +87,7 @@ export default async function Home() {
                 ))
               ) : (
                 <div className="col-span-full text-center py-10">
-                  <p className="text-stone-100">No featured products available.</p>
+                  <p className="text-stone-500">No featured products available.</p>
                 </div>
               )}
             </div>
@@ -103,41 +96,41 @@ export default async function Home() {
         </div>
 
       {/* Categories */}
-       <div className="bg-stone-100 py-20 sm:py-24">
+       <div className="bg-stone-800 py-20 sm:py-24">
         <Container>
           <div className="py-12">
-            <h2 className="text-2xl font-bold tracking-tight text-stone-500 mb-8">
+            <h2 className="text-2xl font-bold tracking-tight text-stone-100 mb-8">
               Shop by Category
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="relative rounded-lg overflow-hidden group h-64">
-                <div className="absolute inset-0 bg-stone-800 bg-opacity-30 group-hover:bg-opacity-40 transition"></div>
+                <div className="absolute inset-0 bg-stone-100 bg-opacity-30 group-hover:bg-stone-300 border-4 border-stone-500 transition-colors duration-300 ease-in-out group-hover:border-stone-500 group-hover:border-8 "></div>
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
-                    <h3 className="text-xl font-semibold text-stone-100 mb-2">Electronics</h3>
-                    <Button href="/products?category=electronics" variant="outline" className="bg-stone-100 text-stone-500">
+                    <h3 className="text-xl font-semibold text-stone-500 mb-2">Electronics</h3>
+                    <Button href="/products?category=Electronics" variant="secondary">
                       Shop Now
                     </Button>
                   </div>
                 </div>
               </div>
               <div className="relative rounded-lg overflow-hidden group h-64">
-                <div className="absolute inset-0 bg-stone-800 bg-opacity-30 group-hover:bg-opacity-40 transition"></div>
+                <div className="absolute inset-0 bg-stone-100 bg-opacity-30 group-hover:bg-stone-300 border-4 border-stone-500 transition-colors duration-300 ease-in-out group-hover:border-stone-500 group-hover:border-8 "></div>
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
-                    <h3 className="text-xl font-semibold text-stone-100 mb-2">Clothing</h3>
-                    <Button href="/products?category=clothing" variant="outline" className="bg-stone-100 text-stone-500">
+                    <h3 className="text-xl font-semibold text-stone-500 mb-2">Clothing</h3>
+                    <Button href="/products?category=Clothing" variant="secondary">
                       Shop Now
                     </Button>
                   </div>
                 </div>
               </div>
               <div className="relative rounded-lg overflow-hidden group h-64">
-                <div className="absolute inset-0 bg-stone-800 bg-opacity-30 group-hover:bg-opacity-40 transition"></div>
+                <div className="absolute inset-0 bg-stone-100 bg-opacity-30 group-hover:bg-stone-300 border-4 border-stone-500 transition-colors duration-300 ease-in-out group-hover:border-stone-500 group-hover:border-8 "></div>
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
-                    <h3 className="text-xl font-semibold text-stone-100 mb-2">Home & Garden</h3>
-                    <Button href="/products?category=home" variant="outline" className="bg-stone-100 text-stone-500">
+                    <h3 className="text-xl font-semibold text-stone-500 mb-2">Home & Garden</h3>
+                    <Button href="/products?category=Home%20%26%20Garden" variant="secondary" >
                       Shop Now
                     </Button>
                   </div>

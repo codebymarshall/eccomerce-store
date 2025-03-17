@@ -15,7 +15,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
   return (
-    <div className="group bg-stone-100 rounded-xl border p-3 space-y-4 h-full flex flex-col justify-between">
+    <div className="group bg-stone-900 rounded-xl border-4 border-stone-500 hover:bg-stone-700 hover:border-stone-900 p-3 space-y-4 h-full flex flex-col justify-between">
       {/* Product Image */}
       <div className="aspect-square rounded-xl bg-stone-100 relative">
         <Image
@@ -36,7 +36,7 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
               Add to Cart
             </Button>
             <Link href={`/products/${product.id}`}>
-              <Button variant="outline" size="sm">
+              <Button variant="primary" size="sm">
                 <Expand size={15} />
               </Button>
             </Link>
@@ -48,17 +48,17 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
       <div className="flex flex-col flex-1">
         <Link href={`/products/${product.id}`} className="flex-1">
           <div className="flex flex-col">
-            <p className="font-semibold text-lg text-stone-500">{product.name}</p>
-            <p className="text-sm text-stone-500">
+            <p className="font-semibold text-lg text-stone-100">{product.name}</p>
+            <p className="text-sm text-stone-100">
               {product.category?.name || "Uncategorized"}
             </p>
           </div>
         </Link>
         <div className="flex items-center justify-between mt-auto">
-          <div className="font-semibold text-stone-500">
+          <div className="font-semibold text-stone-100">
             {formatPrice(product.price)}
           </div>
-          <div className="text-sm text-stone-500">
+          <div className="text-sm text-stone-100">
             {product.inventory > 0 ? `${product.inventory} in stock` : "Out of stock"}
           </div>
         </div>

@@ -57,9 +57,10 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
   const currentPage = parseInt(searchParams.page || "1");
 
   return (
+    <div className="bg-stone-100 h-full">
     <Container>
       <div className="flex flex-col gap-8 py-8">
-        <h1 className="text-3xl font-bold">All Products</h1>
+        <h1 className="text-3xl font-bold text-stone-500">All Products</h1>
         
         <div className="flex flex-col md:flex-row gap-8">
           {/* Filters Sidebar */}
@@ -89,7 +90,8 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
           </div>
         </div>
       </div>
-    </Container>
+      </Container>
+      </div>
   );
 };
 
