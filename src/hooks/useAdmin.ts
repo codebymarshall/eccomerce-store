@@ -22,21 +22,4 @@ export function useAdmin() {
   }, [status, isAdmin, router]);
   
   return { isAdmin, isLoading };
-}
-
-/**
- * Higher-order component that will only render its children if the user is an admin
- */
-export function AdminOnly({ children }: { children: React.ReactNode }) {
-  const { isAdmin, isLoading } = useAdmin();
-  
-  if (isLoading) {
-    return <div className="p-4">Loading...</div>;
-  }
-  
-  if (!isAdmin) {
-    return null;
-  }
-  
-  return <>{children}</>;
 } 

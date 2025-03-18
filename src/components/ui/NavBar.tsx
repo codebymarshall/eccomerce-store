@@ -1,8 +1,8 @@
 "use client";
 
+import { useAdmin } from "@/hooks/useAdmin";
 import { cn } from "@/lib/utils";
 import useCart from "@/store/cart";
-import { Role } from "@prisma/client";
 import { ShoppingBag, User } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -13,9 +13,9 @@ const NavBar = () => {
   const pathname = usePathname();
   const cart = useCart();
   const { data: session } = useSession();
+  const { isAdmin } = useAdmin();
   
   const totalItems = cart.getTotalItems();
-  const isAdmin = session?.user?.role === Role.ADMIN;
 
   const routes = [
     {
