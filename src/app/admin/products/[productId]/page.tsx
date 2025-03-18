@@ -2,14 +2,10 @@ import ProductForm from "@/components/admin/ProductForm";
 import { prisma } from "@/lib/db/prisma";
 import { notFound } from "next/navigation";
 
-interface EditProductPageProps {
-  params: {
-    productId: string;
-  };
-}
+type Params = Promise<{ productId: string }>;
 
-export default async function EditProductPage({ params }: EditProductPageProps) {
-  const { productId } = params;
+export default async function EditProductPage({ params }: { params: Params }) {
+  const { productId } = await params;
 
   const [product, categories] = await Promise.all([
     prisma.product.findUnique({

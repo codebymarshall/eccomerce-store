@@ -6,6 +6,7 @@ import { formatPrice } from "@/lib/format";
 import { OrderStatus } from "@prisma/client";
 import { format } from "date-fns";
 import { getServerSession } from "next-auth";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 // Simple Badge component for status
@@ -98,9 +99,11 @@ export default async function OrdersPage() {
                       <div key={item.id} className="flex items-center gap-4">
                         <div className="w-16 h-16 rounded bg-gray-100 flex items-center justify-center">
                           {item.product.images && item.product.images[0] ? (
-                            <img 
+                            <Image 
                               src={item.product.images[0]} 
                               alt={item.product.name} 
+                              width={64}
+                              height={64}
                               className="max-w-full max-h-full object-contain"
                             />
                           ) : (

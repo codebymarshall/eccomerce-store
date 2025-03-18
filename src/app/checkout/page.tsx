@@ -4,6 +4,7 @@ import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 import { formatPrice } from "@/lib/utils";
 import useCart from "@/store/cart";
+import { CartItem } from "@/types";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -14,15 +15,17 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 const CheckoutPage = () => {
   const router = useRouter();
   const { data: session } = useSession();
-  const { items, clearCart } = useCart();
+  const { items } = useCart((state) => ({
+    items: state.items
+  }));
   const [isLoading, setIsLoading] = useState(false);
 
   const subtotal = items.reduce(
-    (total, item) => total + Number(item.product.price) * item.quantity,
+    (sum: number, item: CartItem) => sum + Number(item.product.price) * item.quantity,
     0
   );
   const shipping = subtotal > 0 ? 5.99 : 0;
-  const total = subtotal + shipping;
+  const orderTotal = subtotal + shipping;
 
   useEffect(() => {
     if (!session) {
@@ -112,7 +115,7 @@ const CheckoutPage = () => {
                 </div>
                 <div className="flex justify-between font-semibold">
                   <span>Total</span>
-                  <span>{formatPrice(total)}</span>
+                  <span>{formatPrice(orderTotal)}</span>
                 </div>
               </div>
             </div>

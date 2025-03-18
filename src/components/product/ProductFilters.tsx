@@ -12,12 +12,34 @@ const ProductFilters = ({ currentCategory }: ProductFiltersProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [categories, setCategories] = useState<Category[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const response = await fetch("/api/categories");
-      const data = await response.json();
-      setCategories(data);
+      try {
+        setIsLoading(true);
+        const response = await fetch("/api/categories");
+        if (!response.ok) throw new Error("Failed to fetch categories");
+        const data = await response.json();
+        
+        // Validate the data structure
+        if (Array.isArray(data) && data.every(item => 
+          typeof item.id === 'string' && 
+          typeof item.name === 'string' &&
+          typeof item.description === 'string' &&
+          typeof item.image === 'string' &&
+          item.createdAt instanceof Date &&
+          item.updatedAt instanceof Date
+        )) {
+          setCategories(data as Category[]);
+        } else {
+          throw new Error("Invalid category data structure");
+        }
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchCategories();
   }, []);
@@ -56,7 +78,7 @@ const ProductFilters = ({ currentCategory }: ProductFiltersProps) => {
           >
             All Products
           </button>
-          {categories.map((category) => (
+          {!isLoading && categories.map((category) => (
             <button
               key={category.id}
               onClick={() => handleCategoryChange(category.name)}

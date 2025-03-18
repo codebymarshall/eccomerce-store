@@ -2,23 +2,40 @@ import ProductCard from "@/components/product/ProductCard";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 import { prisma } from "@/lib/db/prisma";
-import { ProductWithCategory } from "@/types";
 import Image from 'next/image';
 import Link from "next/link";
 
-const getFeaturedProducts = async (): Promise<ProductWithCategory[]> => {
-  const products = await prisma.product.findMany({
-    where: {
-      isFeatured: true,
-    },
-    include: {
-      category: true,
-    },
-    take: 8,
-  });
+async function getFeaturedProducts() {
+  try {
+    const products = await prisma.product.findMany({
+      where: {
+        isFeatured: true,
+      },
+      include: {
+        category: true,
+      },
+      take: 3,
+    });
 
-  return products;
-};
+    // Convert Decimal to number for client-side serialization
+    return products.map(product => ({
+      ...product,
+      price: Number(product.price),
+      category: {
+        ...product.category,
+        id: product.category.id,
+        name: product.category.name,
+        description: product.category.description,
+        image: product.category.image,
+        createdAt: product.category.createdAt,
+        updatedAt: product.category.updatedAt,
+      }
+    }));
+  } catch (error) {
+    console.error("Error fetching featured products:", error);
+    return [];
+  }
+}
 
 export default async function Home() {
   const featuredProducts = await getFeaturedProducts();
@@ -47,7 +64,7 @@ export default async function Home() {
               </h1>
               <p className="mt-2 sm:mt-3 md:mt-4 text-xs sm:text-sm md:text-base leading-5 md:leading-7 text-stone-700">
                 Discover our curated collection of high-quality products for your everyday needs.
-                From electronics to fashion, we've got you covered.
+                From electronics to fashion, we&apos;ve got you covered.
               </p>
               <div className="mt-3 sm:mt-4 md:mt-8 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-x-4">
                 <Button href="/products" size="lg" variant="primary" className="w-full sm:w-auto text-sm sm:text-base">

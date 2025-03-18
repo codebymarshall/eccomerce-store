@@ -4,9 +4,11 @@ import { Role } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
+type Params = Promise<{ userId: string }>;
+
 export async function PATCH(
   request: Request,
-  { params }: { params: { userId: string } }
+  { params }: { params: Params }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -19,7 +21,7 @@ export async function PATCH(
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    const userId = params.userId;
+    const { userId } = await params;
     const body = await request.json();
     const { name, role } = body;
 
@@ -80,7 +82,7 @@ export async function PATCH(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { userId: string } }
+  { params }: { params: Params }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -93,7 +95,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    const userId = params.userId;
+    const { userId } = await params;
 
     // Prevent admins from deleting themselves
     if (userId === session.user.id) {

@@ -12,7 +12,7 @@ const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 export async function POST(request: Request) {
   try {
     const body = await request.text();
-    const headersList = headers();
+    const headersList = await headers();
     const signature = headersList.get("stripe-signature");
 
     if (!signature) {
@@ -30,15 +30,32 @@ export async function POST(request: Request) {
 
     if (event.type === "checkout.session.completed") {
       const session = event.data.object as Stripe.Checkout.Session;
+      const customerId = session.customer;
+      if (!customerId) {
+        throw new Error("No customer ID found");
+      }
+
+      const userId = session.metadata?.userId;
+      if (!userId) {
+        throw new Error("No user ID found in session metadata");
+      }
 
       // Create order
       const order = await prisma.order.create({
         data: {
-          userId: session.metadata?.userId!,
+          userId,
           status: "PROCESSING",
           total: session.amount_total! / 100,
           paymentIntentId: session.payment_intent as string,
-          shippingAddress: session.shipping_details,
+          shippingAddress: session.shipping_details ? {
+            street: session.shipping_details.address?.line1,
+            city: session.shipping_details.address?.city,
+            state: session.shipping_details.address?.state,
+            postalCode: session.shipping_details.address?.postal_code,
+            country: session.shipping_details.address?.country,
+            name: session.shipping_details.name,
+            phone: session.shipping_details.phone,
+          } : undefined,
         },
       });
 
@@ -46,9 +63,15 @@ export async function POST(request: Request) {
       const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
       const orderItems = await Promise.all(
         lineItems.data.map(async (item) => {
+          if (!item.description) {
+            throw new Error("Item description is required");
+          }
+
           const product = await prisma.product.findFirst({
             where: {
-              name: item.description,
+              name: {
+                equals: item.description,
+              },
             },
           });
 

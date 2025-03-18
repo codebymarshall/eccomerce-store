@@ -8,7 +8,7 @@ type PrismaModels = Omit<
 
 // Extract model types
 type Models = {
-  [K in keyof PrismaModels]: PrismaModels[K] extends (...args: any) => any
+  [K in keyof PrismaModels]: PrismaModels[K] extends (...args: unknown[]) => unknown
     ? ReturnType<PrismaModels[K]> extends Promise<infer U>
       ? U extends Array<infer I>
         ? I
@@ -19,9 +19,50 @@ type Models = {
 
 // Define our model types
 export type User = Models["user"];
-export type Product = Models["product"];
-export type Category = Models["category"];
-export type Order = Models["order"];
+export type Product = {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  images: string[];
+  inventory: number;
+  isFeatured: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  categoryId: string;
+};
+export type Category = {
+  id: string;
+  name: string;
+  description: string | null;
+  image: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+};
+export type ShippingAddress = {
+  street?: string;
+  city?: string;
+  state?: string;
+  postalCode?: string;
+  country?: string;
+  name?: string;
+  phone?: string;
+};
+export type Order = {
+  id: string;
+  userId: string;
+  status: string;
+  total: number;
+  paymentIntentId: string | null;
+  shippingAddress: ShippingAddress | null;
+  createdAt: Date;
+  updatedAt: Date;
+  user?: {
+    name: string | null;
+    email: string;
+  };
+  orderItems?: OrderItem[];
+};
 export type Review = Models["review"];
 export type OrderItem = Models["orderItem"];
 
@@ -38,16 +79,46 @@ export type SafeUser = Omit<User, "password"> & {
   role: Role;
 };
 
-export type ProductWithCategory = Product & {
-  category: Category;
+export type ProductWithCategory = {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  images: string[];
+  inventory: number;
+  isFeatured: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  categoryId: string;
+  category: {
+    id: string;
+    name: string;
+    description: string | null;
+    image: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+  };
+};
+
+export type ReviewWithUser = {
+  id: string;
+  rating: number;
+  comment: string | null;
+  createdAt: Date;
+  userId: string;
+  productId: string;
+  user: {
+    name: string | null;
+    image: string | null;
+  };
 };
 
 export type ProductWithCategoryAndReviews = ProductWithCategory & {
-  reviews: Review[];
+  reviews: ReviewWithUser[];
 };
 
 export type CartItem = {
-  product: Product;
+  product: ProductWithCategory;
   quantity: number;
 };
 

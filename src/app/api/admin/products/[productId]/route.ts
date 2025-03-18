@@ -3,9 +3,11 @@ import { prisma } from "@/lib/db/prisma";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
+type Params = Promise<{ productId: string }>;
+
 export async function PUT(
   request: Request,
-  { params }: { params: { productId: string } }
+  { params }: { params: Params }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -18,7 +20,7 @@ export async function PUT(
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    const productId = params.productId;
+    const { productId } = await params;
     const body = await request.json();
     const { name, description, price, images, categoryId, inventory, isFeatured } = body;
 
@@ -84,7 +86,7 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { productId: string } }
+  { params }: { params: Params }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -97,7 +99,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    const productId = params.productId;
+    const { productId } = await params;
 
     // Check if product exists
     const existingProduct = await prisma.product.findUnique({

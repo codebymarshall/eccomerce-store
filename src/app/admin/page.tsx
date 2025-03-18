@@ -36,7 +36,10 @@ async function getStats() {
     productCount,
     orderCount,
     userCount,
-    recentOrders,
+    recentOrders: recentOrders.map(order => ({
+      ...order,
+      total: Number(order.total)
+    })),
     totalRevenue: totalRevenue._sum.total || 0
   };
 }
@@ -110,7 +113,7 @@ export default async function AdminDashboard() {
         <div className="bg-white p-6 rounded-lg shadow-sm border">
           <h2 className="text-xl font-semibold mb-4">Total Revenue</h2>
           <p className="text-3xl font-bold text-green-600">
-            {formatPrice(totalRevenue)}
+            {formatPrice(Number(totalRevenue))}
           </p>
         </div>
         

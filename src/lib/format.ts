@@ -3,7 +3,7 @@
  * @param price - The price to format
  * @returns The formatted price string
  */
-export function formatPrice(price: number | string | { toString(): string }): string {
+export function formatPrice(price: number | string | { toString(): string } | { price: number }): string {
   // Convert to number
   let numericPrice: number;
   
@@ -11,6 +11,8 @@ export function formatPrice(price: number | string | { toString(): string }): st
     numericPrice = price;
   } else if (typeof price === 'string') {
     numericPrice = parseFloat(price);
+  } else if ('price' in price) {
+    numericPrice = price.price;
   } else {
     // Object with toString method
     numericPrice = parseFloat(price.toString());

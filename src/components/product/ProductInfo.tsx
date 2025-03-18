@@ -1,6 +1,6 @@
 "use client";
 
-import { formatPrice } from "@/lib/utils";
+import { formatPrice } from "@/lib/format";
 import useCart from "@/store/cart";
 import { ProductWithCategoryAndReviews } from "@/types";
 import { Star } from "lucide-react";

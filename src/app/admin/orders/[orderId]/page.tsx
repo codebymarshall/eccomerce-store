@@ -6,14 +6,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import OrderStatus from "./components/OrderStatus";
 
-interface OrderDetailPageProps {
-  params: {
-    orderId: string;
-  };
-}
+type Params = Promise<{ orderId: string }>;
 
-export default async function OrderDetailPage({ params }: OrderDetailPageProps) {
-  const { orderId } = params;
+export default async function OrderDetailPage({ params }: { params: Params }) {
+  const { orderId } = await params;
 
   const order = await prisma.order.findUnique({
     where: {
@@ -41,6 +37,9 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
   if (!order) {
     notFound();
   }
+
+  // Convert Decimal to number for display
+  const orderTotal = Number(order.total);
 
   return (
     <div>
@@ -118,7 +117,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
               </div>
               <div className="flex justify-between font-semibold">
                 <span>Total</span>
-                <span>{formatPrice(order.total)}</span>
+                <span>{formatPrice(orderTotal)}</span>
               </div>
             </div>
           </div>

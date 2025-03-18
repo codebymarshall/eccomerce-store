@@ -2,23 +2,20 @@
 
 import { cn } from "@/lib/utils";
 import useCart from "@/store/cart";
-import { SafeUser } from "@/types";
+import { Role } from "@prisma/client";
 import { ShoppingBag, User } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Container from "./Container";
 
-interface NavBarProps {
-  user?: SafeUser | null;
-}
-
-const NavBar = ({ user }: NavBarProps) => {
+const NavBar = () => {
   const pathname = usePathname();
   const cart = useCart();
   const { data: session } = useSession();
   
   const totalItems = cart.getTotalItems();
+  const isAdmin = session?.user?.role === Role.ADMIN;
 
   const routes = [
     {
@@ -90,7 +87,7 @@ const NavBar = ({ user }: NavBarProps) => {
                     <Link href="/account/orders" className="block px-4 py-2 text-sm text-stone-500 hover:bg-stone-100">
                       My Orders
                     </Link>
-                    {user?.role === "ADMIN" && (
+                    {isAdmin && (
                       <Link href="/admin" className="block px-4 py-2 text-sm text-stone-500 hover:bg-stone-100 cursor-pointer">
                         Admin
                       </Link>

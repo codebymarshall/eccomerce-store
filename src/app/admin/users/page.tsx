@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db/prisma";
-import { Calendar, Mail, User } from "lucide-react";
+import { Calendar, Mail } from "lucide-react";
+import Image from "next/image";
 
 export default async function UsersPage() {
   const users = await prisma.user.findMany({
@@ -48,13 +49,19 @@ export default async function UsersPage() {
                     <div className="flex items-center">
                       <div className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
                         {user.image ? (
-                          <img
+                          <Image
                             src={user.image}
                             alt={user.name || "User"}
-                            className="h-10 w-10 rounded-full"
+                            width={40}
+                            height={40}
+                            className="rounded-full"
                           />
                         ) : (
-                          <User className="h-5 w-5 text-gray-500" />
+                          <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                            <span className="text-gray-500 text-sm">
+                              {user.name?.[0] || "U"}
+                            </span>
+                          </div>
                         )}
                       </div>
                       <div className="ml-4">
