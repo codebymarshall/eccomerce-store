@@ -1,6 +1,7 @@
 "use client";
 
 import { formatPrice } from "@/lib/format";
+import useCart from "@/store/cart";
 import { ProductWithCategory } from "@/types";
 import { Expand, ShoppingCart } from "lucide-react";
 import Image from "next/image";
@@ -10,10 +11,16 @@ import Button from "../ui/Button";
 
 interface ProductCardProps {
   product: ProductWithCategory;
-  onAddToCart?: MouseEventHandler<HTMLButtonElement>;
 }
 
-const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
+const ProductCard = ({ product }: ProductCardProps) => {
+  const addItem = useCart(state => state.addItem);
+
+  const handleAddToCart: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    addItem(product);
+  };
+
   return (
     <div className="group bg-stone-100 rounded-xl border p-3 space-y-4 h-full flex flex-col justify-between">
       {/* Product Image */}
@@ -27,7 +34,7 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
         <div className="opacity-0 group-hover:opacity-100 transition absolute w-full px-6 bottom-5">
           <div className="flex gap-x-6 justify-center">
             <Button 
-              onClick={onAddToCart} 
+              onClick={handleAddToCart} 
               variant="primary" 
               size="sm"
               className="flex items-center gap-x-2"
