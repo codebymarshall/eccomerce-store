@@ -1,6 +1,7 @@
+import ProductActions from "@/components/admin/ProductActions";
 import { prisma } from "@/lib/db/prisma";
 import { formatPrice } from "@/lib/utils";
-import { Edit, Plus, Trash } from "lucide-react";
+import { Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -88,27 +89,7 @@ export default async function ProductsPage() {
                     {product.isFeatured ? "Yes" : "No"}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <div className="flex justify-end space-x-2">
-                      <Link 
-                        href={`/admin/products/${product.id}`}
-                        className="p-2 text-blue-600 hover:text-blue-900"
-                      >
-                        <Edit className="h-5 w-5" />
-                      </Link>
-                      <form action={`/api/admin/products/${product.id}/delete`} method="POST">
-                        <button 
-                          type="submit"
-                          className="p-2 text-red-600 hover:text-red-900"
-                          onClick={(e) => {
-                            if (!confirm("Are you sure you want to delete this product?")) {
-                              e.preventDefault();
-                            }
-                          }}
-                        >
-                          <Trash className="h-5 w-5" />
-                        </button>
-                      </form>
-                    </div>
+                    <ProductActions productId={product.id} />
                   </td>
                 </tr>
               ))}

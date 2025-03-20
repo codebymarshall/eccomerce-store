@@ -14,7 +14,6 @@ async function getFeaturedProducts() {
       include: {
         category: true,
       },
-      take: 3,
     });
 
     // Convert Decimal to number for client-side serialization
