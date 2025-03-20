@@ -22,15 +22,9 @@ const ProductFilters = ({ currentCategory }: ProductFiltersProps) => {
         if (!response.ok) throw new Error("Failed to fetch categories");
         const data = await response.json();
         
-        // Validate the data structure
-        if (Array.isArray(data) && data.every(item => 
-          typeof item.id === 'string' && 
-          typeof item.name === 'string' &&
-          typeof item.description === 'string' &&
-          typeof item.image === 'string' &&
-          item.createdAt instanceof Date &&
-          item.updatedAt instanceof Date
-        )) {
+        // Accept the categories from the API without overly strict validation
+        // JSON dates come as strings, not Date objects
+        if (Array.isArray(data)) {
           setCategories(data as Category[]);
         } else {
           throw new Error("Invalid category data structure");

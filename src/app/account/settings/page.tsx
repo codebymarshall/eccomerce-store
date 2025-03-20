@@ -1,4 +1,4 @@
-import Button from "@/components/ui/Button";
+import PasswordForm from "@/components/account/PasswordForm";
 import Container from "@/components/ui/Container";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
@@ -22,12 +22,7 @@ export default async function SettingsPage() {
             <p className="mt-1 text-gray-500">
               Update your password to keep your account secure.
             </p>
-            <div className="mt-4">
-              <Button variant="outline">Change Password</Button>
-            </div>
-            <div className="mt-2 text-sm text-gray-500">
-              Password changes are not yet implemented in this demo.
-            </div>
+            <PasswordForm />
           </section>
           
           <section>
@@ -84,7 +79,12 @@ export default async function SettingsPage() {
               Actions in this section can&apos;t be undone.
             </p>
             <div className="mt-4">
-              <Button variant="danger" disabled>Delete Account</Button>
+              <button 
+                className="px-4 py-2 bg-red-600 text-white font-medium rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50"
+                disabled
+              >
+                Delete Account
+              </button>
             </div>
             <div className="mt-2 text-sm text-gray-500">
               Account deletion is not yet implemented in this demo.
