@@ -82,7 +82,7 @@ export default function ProductForm({
     const imageField = document.createElement("input");
     imageField.type = "text";
     imageField.name = "images";
-    imageField.className = "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm";
+    imageField.className = "mt-1 block w-full rounded-md border-stone-300 shadow-sm focus:border-stone-900 focus:ring-stone-900 sm:text-sm";
     imageField.placeholder = "Image URL";
     
     document.getElementById("image-fields")?.appendChild(imageField);
@@ -99,7 +99,7 @@ export default function ProductForm({
       <div>
         <label 
           htmlFor="name" 
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-stone-700"
         >
           Product Name
         </label>
@@ -109,14 +109,14 @@ export default function ProductForm({
           name="name"
           required
           defaultValue={product?.name}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
+          className="mt-1 block w-full rounded-md text-stone-500 border-stone-300 shadow-sm focus:border-stone-900 focus:ring-stone-900 sm:text-sm"
         />
       </div>
 
       <div>
         <label 
           htmlFor="description" 
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-stone-700"
         >
           Description
         </label>
@@ -125,7 +125,7 @@ export default function ProductForm({
           name="description"
           rows={4}
           defaultValue={product?.description}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
+          className="mt-1 block w-full rounded-md text-stone-500 border-stone-300 shadow-sm focus:border-stone-900 focus:ring-stone-900 sm:text-sm"
         />
       </div>
 
@@ -133,13 +133,13 @@ export default function ProductForm({
         <div>
           <label 
             htmlFor="price" 
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-stone-700"
           >
             Price
           </label>
           <div className="mt-1 relative rounded-md shadow-sm">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <span className="text-gray-500 sm:text-sm">$</span>
+              <span className="text-stone-500 sm:text-sm">$</span>
             </div>
             <input
               type="number"
@@ -149,7 +149,7 @@ export default function ProductForm({
               min="0"
               step="0.01"
               defaultValue={product?.price}
-              className="block w-full pl-7 rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
+              className="block w-full pl-7 rounded-md text-stone-500 border-stone-300 shadow-sm focus:border-stone-900 focus:ring-stone-900 sm:text-sm"
             />
           </div>
         </div>
@@ -157,7 +157,7 @@ export default function ProductForm({
         <div>
           <label 
             htmlFor="inventory" 
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-stone-700"
           >
             Inventory
           </label>
@@ -168,7 +168,7 @@ export default function ProductForm({
             required
             min="0"
             defaultValue={product?.inventory || 0}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
+            className="mt-1 block w-full rounded-md text-stone-500 border-stone-300 shadow-sm focus:border-stone-900 focus:ring-stone-900 sm:text-sm"
           />
         </div>
       </div>
@@ -176,7 +176,7 @@ export default function ProductForm({
       <div>
         <label 
           htmlFor="categoryId" 
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-stone-700"
         >
           Category
         </label>
@@ -185,7 +185,7 @@ export default function ProductForm({
           name="categoryId"
           required
           defaultValue={product?.categoryId}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
+          className="mt-1 block w-full rounded-md text-stone-500 border-stone-300 shadow-sm focus:border-stone-900 focus:ring-stone-900 sm:text-sm"
         >
           <option value="">Select a category</option>
           {categories.map((category) => (
@@ -197,10 +197,10 @@ export default function ProductForm({
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-stone-700 mb-2">
           Images
         </label>
-        <div id="image-fields" className="space-y-2">
+        <div id="image-fields" className="space-y-2 text-stone-500">
           {product?.images && product.images.length > 0 ? (
             product.images.map((image, index) => (
               <input
@@ -208,7 +208,7 @@ export default function ProductForm({
                 type="text"
                 name="images"
                 defaultValue={image}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
+                className="mt-1 block w-full rounded-md  border-stone-300 shadow-sm focus:border-stone-900 focus:ring-stone-900 sm:text-sm"
                 placeholder="Image URL"
               />
             ))
@@ -216,7 +216,7 @@ export default function ProductForm({
             <input
               type="text"
               name="images"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
+              className="mt-1 block w-full rounded-md  border-stone-300 shadow-sm focus:border-stone-900 focus:ring-stone-900 sm:text-sm"
               placeholder="Image URL"
             />
           )}
@@ -236,11 +236,11 @@ export default function ProductForm({
           id="isFeatured"
           name="isFeatured"
           defaultChecked={product?.isFeatured}
-          className="h-4 w-4 text-black focus:ring-black border-gray-300 rounded"
+          className="h-4 w-4 text-stone-900 focus:ring-stone-900 border-stone-300 rounded"
         />
         <label 
           htmlFor="isFeatured" 
-          className="ml-2 block text-sm text-gray-700"
+          className="ml-2 block text-sm text-stone-700"
         >
           Featured product
         </label>

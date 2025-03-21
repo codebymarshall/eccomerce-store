@@ -4,10 +4,31 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: 'res.cloudinary.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'stripe.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'files.stripe.com',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
       },
     ],
   },
+  serverExternalPackages: ['@prisma/client'],
 };
 
 module.exports = nextConfig; 

@@ -1,14 +1,15 @@
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db/prisma";
 import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(
-  request: Request,
-  { params }: { params: { productId: string } }
+  request: NextRequest,
+  { params }: { params: Promise<{ productId: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
+    const resolvedParams = await params;
 
     if (!session?.user || session.user.role !== "ADMIN") {
       return NextResponse.json(
@@ -17,7 +18,7 @@ export async function POST(
       );
     }
 
-    const productId = params.productId;
+    const productId = resolvedParams.productId;
     if (!productId) {
       return NextResponse.json(
         { error: "Product ID is required" },
