@@ -55,7 +55,7 @@ const LoginForm = () => {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-stone-700"
             >
               Email
             </label>
@@ -64,14 +64,14 @@ const LoginForm = () => {
               id="email"
               name="email"
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
+              className="mt-1 block w-full rounded-md text-stone-500 border-stone-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
             />
           </div>
 
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-stone-700"
             >
               Password
             </label>
@@ -80,7 +80,7 @@ const LoginForm = () => {
               id="password"
               name="password"
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
+              className="mt-1 block w-full rounded-md text-stone-500 border-stone-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
             />
           </div>
 
@@ -88,9 +88,9 @@ const LoginForm = () => {
             {isLoading ? "Logging in..." : "Login"}
           </Button>
 
-          <div className="text-center text-sm">
+          <div className="text-center text-sm text-stone-500">
             Don&apos;t have an account?{" "}
-            <Link href="/register" className="text-black hover:underline">
+            <Link href="/register" className="text-stone-900 hover:underline">
               Register
             </Link>
           </div>
@@ -107,9 +107,9 @@ const LoginFormLoading = () => {
       <h1 className="text-2xl font-bold mb-8">Login</h1>
       <div className="bg-white border rounded-lg p-6">
         <div className="animate-pulse space-y-6">
-          <div className="h-10 bg-gray-200 rounded"></div>
-          <div className="h-10 bg-gray-200 rounded"></div>
-          <div className="h-10 bg-gray-200 rounded"></div>
+          <div className="h-10 bg-stone-200 rounded"></div>
+          <div className="h-10 bg-stone-200 rounded"></div>
+          <div className="h-10 bg-stone-200 rounded"></div>
         </div>
       </div>
     </div>

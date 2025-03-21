@@ -24,7 +24,7 @@ const CartPage = () => {
       <Container>
         <div className="py-16 text-center">
           <h1 className="text-3xl font-bold mb-4">Your cart is empty</h1>
-          <p className="text-gray-500 mb-8">
+          <p className="text-stone-500 mb-8">
             Add some products to your cart and they will appear here.
           </p>
           <Link href="/products">
@@ -36,13 +36,14 @@ const CartPage = () => {
   }
 
   return (
+    <div className="bg-stone-100">
     <Container>
       <div className="py-8">
-        <h1 className="text-3xl font-bold mb-8">Shopping Cart</h1>
+        <h1 className="text-3xl font-bold mb-8 text-stone-900">Shopping Cart</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Cart Items */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-2 space-y-4 text-stone-900">
             {items.map((item) => (
               <div
                 key={item.product.id}
@@ -58,14 +59,14 @@ const CartPage = () => {
                 </div>
                 <div className="flex-1">
                   <h3 className="font-semibold">{item.product.name}</h3>
-                  <p className="text-gray-500">{item.product.category.name}</p>
+                  <p className="text-stone-500">{item.product.category.name}</p>
                   <div className="mt-2 flex items-center gap-4">
                     <div className="flex items-center border rounded-lg">
                       <button
                         onClick={() =>
                           updateQuantity(item.product.id, item.quantity - 1)
                         }
-                        className="px-3 py-1 hover:bg-gray-100"
+                        className="px-3 py-1 hover:bg-stone-100"
                         disabled={item.quantity <= 1}
                       >
                         -
@@ -75,7 +76,7 @@ const CartPage = () => {
                         onClick={() =>
                           updateQuantity(item.product.id, item.quantity + 1)
                         }
-                        className="px-3 py-1 hover:bg-gray-100"
+                        className="px-3 py-1 hover:bg-stone-100"
                         disabled={item.quantity >= item.product.inventory}
                       >
                         +
@@ -93,7 +94,7 @@ const CartPage = () => {
                   <p className="font-semibold">
                     {formatPrice(Number(item.product.price) * item.quantity)}
                   </p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-stone-500">
                     {formatPrice(item.product.price)} each
                   </p>
                 </div>
@@ -104,8 +105,8 @@ const CartPage = () => {
           {/* Order Summary */}
           <div className="lg:col-span-1">
             <div className="border rounded-lg p-6 space-y-4">
-              <h2 className="text-xl font-semibold">Order Summary</h2>
-              <div className="space-y-2">
+              <h2 className="text-xl font-semibold text-stone-900">Order Summary</h2>
+              <div className="space-y-2 text-stone-500">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
                   <span>{formatPrice(subtotal)}</span>
@@ -115,7 +116,7 @@ const CartPage = () => {
                   <span>{formatPrice(shipping)}</span>
                 </div>
                 <div className="border-t pt-2">
-                  <div className="flex justify-between font-semibold">
+                  <div className="flex justify-between font-semibold text-stone-900">
                     <span>Total</span>
                     <span>{formatPrice(total)}</span>
                   </div>
@@ -128,7 +129,8 @@ const CartPage = () => {
           </div>
         </div>
       </div>
-    </Container>
+      </Container>
+      </div>
   );
 };
 

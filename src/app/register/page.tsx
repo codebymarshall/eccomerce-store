@@ -70,7 +70,7 @@ const RegisterPage = () => {
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-stone-700"
               >
                 Name
               </label>
@@ -79,14 +79,14 @@ const RegisterPage = () => {
                 id="name"
                 name="name"
                 required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
+                className="mt-1 block w-full rounded-md text-stone-500 border-stone-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
               />
             </div>
 
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-stone-700"
               >
                 Email
               </label>
@@ -95,14 +95,14 @@ const RegisterPage = () => {
                 id="email"
                 name="email"
                 required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
+                className="mt-1 block w-full rounded-md text-stone-500 border-stone-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
               />
             </div>
 
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-stone-700"
               >
                 Password
               </label>
@@ -112,7 +112,7 @@ const RegisterPage = () => {
                 name="password"
                 required
                 minLength={8}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
+                className="mt-1 block w-full rounded-md text-stone-500 border-stone-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
               />
             </div>
 
@@ -120,9 +120,9 @@ const RegisterPage = () => {
               {isLoading ? "Creating account..." : "Register"}
             </Button>
 
-            <div className="text-center text-sm">
+            <div className="text-center text-sm text-stone-500">
               Already have an account?{" "}
-              <Link href="/login" className="text-black hover:underline">
+              <Link href="/login" className="text-stone-900 hover:underline">
                 Login
               </Link>
             </div>

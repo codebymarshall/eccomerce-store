@@ -63,14 +63,14 @@ export default function OrderStatus({ orderId, currentStatus }: OrderStatusProps
       </div>
       
       {isOpen && (
-        <div className="absolute mt-1 w-40 bg-white border rounded-md shadow-lg z-10">
+        <div className="absolute mt-1 w-40 bg-stone-500 border rounded-md shadow-lg z-10">
           <div className="py-1">
             {statuses.map((statusOption) => (
               <button
                 key={statusOption}
                 onClick={() => updateStatus(statusOption)}
-                className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 ${
-                  status === statusOption ? "font-semibold bg-gray-50" : ""
+                className={`w-full text-left px-4 py-2 text-sm hover:bg-stone-900 ${
+                  status === statusOption ? "font-semibold bg-stone-900" : ""
                 }`}
               >
                 {statusOption}

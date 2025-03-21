@@ -15,13 +15,13 @@ const Footer = () => {
                 <Link href="/products" className="text-sm text-stone-200 hover:text-stone-500 transition">
                   All Products
                 </Link>
-                <Link href="/products?category=electronics" className="text-sm text-stone-200 hover:text-stone-500 transition">
+                <Link href="/products?category=Electronics" className="text-sm text-stone-200 hover:text-stone-500 transition">
                   Electronics
                 </Link>
-                <Link href="/products?category=clothing" className="text-sm text-stone-200 hover:text-stone-500 transition">
+                <Link href="/products?category=Clothing" className="text-sm text-stone-200 hover:text-stone-500 transition">
                   Clothing
                 </Link>
-                <Link href="/products?category=home" className="text-sm text-stone-200 hover:text-stone-500 transition">
+                <Link href="/products?category=Home%20%26%20Garden" className="text-sm text-stone-200 hover:text-stone-500 transition">
                   Home & Garden
                 </Link>
               </div>

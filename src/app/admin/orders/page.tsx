@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/db/prisma";
 import { formatPrice } from "@/lib/utils";
-import { Eye } from "lucide-react";
+import { Eye, Plus } from "lucide-react";
 import Link from "next/link";
 
 export default async function OrdersPage() {
@@ -25,7 +25,16 @@ export default async function OrdersPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-8">Orders</h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold">Orders</h1>
+        <Link 
+          href="/admin/orders/new" 
+          className="flex items-center px-4 py-2 bg-stone-900 text-white rounded-md hover:bg-stone-500"
+        >
+          <Plus className="mr-2 h-5 w-5" />
+          Add Order
+        </Link>
+      </div>
 
       <div className="bg-white shadow-sm rounded-lg overflow-hidden">
         <div className="overflow-x-auto">

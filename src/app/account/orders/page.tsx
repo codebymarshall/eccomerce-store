@@ -74,26 +74,26 @@ export default async function OrdersPage() {
               <div key={order.id} className="bg-stone-100 shadow rounded-lg overflow-hidden">
                 <div className="p-4 border-b flex flex-wrap justify-between items-center gap-4">
                   <div>
-                    <p className="text-sm text-stone-500">Order placed</p>
-                    <p className="font-medium">
+                    <p className="text-sm text-stone-900">Order placed</p>
+                    <p className="font-medium text-stone-500">
                       {format(new Date(order.createdAt), "MMMM d, yyyy")}
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-stone-500">Total</p>
-                    <p className="font-medium">{formatPrice(Number(order.total))}</p>
+                    <p className="text-sm text-stone-900">Total</p>
+                    <p className="font-medium text-stone-500">{formatPrice(Number(order.total))}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-stone-500">Status</p>
+                    <p className="text-sm text-stone-900">Status</p>
                     <div className="mt-1">{getStatusBadge(order.status as OrderStatus)}</div>
                   </div>
                   <div>
-                    <p className="text-sm text-stone-500">Order ID</p>
-                    <p className="font-mono text-xs">{order.id.substring(0, 8)}</p>
+                    <p className="text-sm text-stone-900">Order ID</p>
+                    <p className="font-mono text-xs text-stone-500">{order.id.substring(0, 8)}</p>
                   </div>
                 </div>
                 <div className="p-4">
-                  <h3 className="font-semibold mb-2">Items</h3>
+                  <h3 className="font-semibold mb-2 text-stone-900">Items</h3>
                   <div className="space-y-3">
                     {order.orderItems.map((item) => (
                       <div key={item.id} className="flex items-center gap-4">
@@ -107,11 +107,11 @@ export default async function OrdersPage() {
                               className="max-w-full max-h-full object-contain"
                             />
                           ) : (
-                            <div className="text-gray-400 text-xs text-center">No image</div>
+                            <div className="text-stone-400 text-xs text-center">No image</div>
                           )}
                         </div>
                         <div>
-                          <h4 className="font-medium">{item.product.name}</h4>
+                          <h4 className="font-medium text-stone-500">{item.product.name}</h4>
                           <p className="text-sm text-stone-500">
                             {formatPrice(Number(item.price))} × {item.quantity} = {formatPrice(Number(item.price) * item.quantity)}
                           </p>
@@ -121,9 +121,9 @@ export default async function OrdersPage() {
                   </div>
                 </div>
                 <div className="bg-stone-50 p-4 border-t">
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-sm text-stone-900">
                     <span>Shipping address:</span>
-                    <span className="text-stone-700">{order.shippingAddress?.toString() || "N/A"}</span>
+                    <span className="text-stone-500">{order.shippingAddress?.toString() || "N/A"}</span>
                   </div>
                 </div>
               </div>
