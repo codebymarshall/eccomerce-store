@@ -7,6 +7,7 @@ import { ShoppingBag, User } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import Container from "./Container";
 
 const NavBar = () => {
@@ -14,8 +15,14 @@ const NavBar = () => {
   const cart = useCart();
   const { data: session } = useSession();
   const { isAdmin } = useAdmin();
+  const [mounted, setMounted] = useState(false);
   
-  const totalItems = cart.getTotalItems();
+  // Only access cart after client-side hydration
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
+  const totalItems = mounted ? cart.getTotalItems() : 0;
 
   const routes = [
     {
@@ -35,8 +42,8 @@ const NavBar = () => {
     },
     {
       label: "Contact",
-      href: "/Contact",
-      active: pathname === "/Contact",
+      href: "/contact",
+      active: pathname === "/contact",
     },
   ];
 
@@ -67,7 +74,7 @@ const NavBar = () => {
           <div className="flex items-center space-x-4">
             <Link href="/cart" className="relative">
               <ShoppingBag size={20} />
-              {totalItems > 0 && (
+              {mounted && totalItems > 0 && (
                 <span className="absolute -top-1 -right-2 w-5 h-5 bg-stone-500 text-stone-200 rounded-full text-xs flex items-center justify-center">
                   {totalItems}
                 </span>

@@ -10,14 +10,12 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
 const CheckoutPage = () => {
   const router = useRouter();
   const { data: session } = useSession();
-  const { items } = useCart((state) => ({
-    items: state.items
-  }));
+  const items = useCart((state) => state.items);
   const [isLoading, setIsLoading] = useState(false);
 
   const subtotal = items.reduce(
