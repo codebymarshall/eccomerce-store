@@ -35,7 +35,7 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <div className="w-64 bg-gray-900 text-white p-4">
+      <div className="w-64 bg-stone-900 text-stone-100 p-4">
         <div className="mb-8">
           <h1 className="text-2xl font-bold">Admin Panel</h1>
         </div>
@@ -45,7 +45,7 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
             <Link
               key={item.name}
               href={item.href}
-              className="flex items-center px-4 py-3 text-sm font-medium rounded-md hover:bg-gray-800"
+              className="flex items-center px-4 py-3 text-sm font-medium rounded-md hover:bg-stone-800"
             >
               <item.icon className="mr-3 h-5 w-5" />
               {item.name}
@@ -56,7 +56,7 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
         <div className="mt-auto pt-8">
           <Link 
             href="/"
-            className="flex items-center px-4 py-3 text-sm font-medium rounded-md hover:bg-gray-800"
+            className="flex items-center px-4 py-3 text-sm font-medium rounded-md hover:bg-stone-800"
           >
             <LogOut className="mr-3 h-5 w-5" />
             Back to Store
@@ -65,7 +65,7 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
       </div>
       
       {/* Main content */}
-      <div className="flex-1 p-8 bg-gray-50">
+      <div className="flex-1 p-8 bg-stone-100">
         {children}
       </div>
     </div>

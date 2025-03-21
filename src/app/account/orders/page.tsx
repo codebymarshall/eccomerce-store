@@ -61,34 +61,34 @@ export default async function OrdersPage() {
   return (
     <Container>
       <div className="py-10">
-        <h1 className="text-3xl font-bold tracking-tight">Your Orders</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-stone-800">Your Orders</h1>
         <div className="mt-6 space-y-8">
           {orders.length === 0 ? (
             <div className="text-center py-10">
-              <h2 className="text-xl font-semibold mb-2">No orders yet</h2>
-              <p className="text-gray-500 mb-4">You haven&apos;t placed any orders yet.</p>
+              <h2 className="text-xl font-semibold mb-2 text-stone-500">No orders yet</h2>
+              <p className="text-stone-500 mb-4">You haven&apos;t placed any orders yet.</p>
               <Button href="/products">Browse Products</Button>
             </div>
           ) : (
             orders.map((order) => (
-              <div key={order.id} className="bg-white shadow rounded-lg overflow-hidden">
+              <div key={order.id} className="bg-stone-100 shadow rounded-lg overflow-hidden">
                 <div className="p-4 border-b flex flex-wrap justify-between items-center gap-4">
                   <div>
-                    <p className="text-sm text-gray-500">Order placed</p>
+                    <p className="text-sm text-stone-500">Order placed</p>
                     <p className="font-medium">
                       {format(new Date(order.createdAt), "MMMM d, yyyy")}
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Total</p>
+                    <p className="text-sm text-stone-500">Total</p>
                     <p className="font-medium">{formatPrice(Number(order.total))}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Status</p>
+                    <p className="text-sm text-stone-500">Status</p>
                     <div className="mt-1">{getStatusBadge(order.status as OrderStatus)}</div>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Order ID</p>
+                    <p className="text-sm text-stone-500">Order ID</p>
                     <p className="font-mono text-xs">{order.id.substring(0, 8)}</p>
                   </div>
                 </div>
@@ -97,7 +97,7 @@ export default async function OrdersPage() {
                   <div className="space-y-3">
                     {order.orderItems.map((item) => (
                       <div key={item.id} className="flex items-center gap-4">
-                        <div className="w-16 h-16 rounded bg-gray-100 flex items-center justify-center">
+                        <div className="w-16 h-16 rounded bg-stone-100 flex items-center justify-center">
                           {item.product.images && item.product.images[0] ? (
                             <Image 
                               src={item.product.images[0]} 
@@ -112,7 +112,7 @@ export default async function OrdersPage() {
                         </div>
                         <div>
                           <h4 className="font-medium">{item.product.name}</h4>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-stone-500">
                             {formatPrice(Number(item.price))} × {item.quantity} = {formatPrice(Number(item.price) * item.quantity)}
                           </p>
                         </div>
@@ -120,10 +120,10 @@ export default async function OrdersPage() {
                     ))}
                   </div>
                 </div>
-                <div className="bg-gray-50 p-4 border-t">
+                <div className="bg-stone-50 p-4 border-t">
                   <div className="flex justify-between text-sm">
                     <span>Shipping address:</span>
-                    <span className="text-gray-700">{order.shippingAddress?.toString() || "N/A"}</span>
+                    <span className="text-stone-700">{order.shippingAddress?.toString() || "N/A"}</span>
                   </div>
                 </div>
               </div>

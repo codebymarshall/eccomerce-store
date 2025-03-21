@@ -64,10 +64,10 @@ const ProductFilters = ({ currentCategory }: ProductFiltersProps) => {
         <div className="space-y-2">
           <button
             onClick={() => handleCategoryChange("all")}
-            className={`block w-full text-left px-4 py-2 rounded-lg text-stone-100 ${
+            className={`block w-full text-left px-4 py-2 rounded-lg bg-stone-500 text-stone-100 ${
               !currentCategory
                 ? "bg-stone-900 text-stone-100"
-                : "hover:bg-stone-500"
+                : "hover:bg-stone-900"
             }`}
           >
             All Products
@@ -76,10 +76,10 @@ const ProductFilters = ({ currentCategory }: ProductFiltersProps) => {
             <button
               key={category.id}
               onClick={() => handleCategoryChange(category.name)}
-              className={`block w-full text-left px-4 py-2 rounded-lg text-stone-100${
+              className={`block w-full text-left px-4 py-2 rounded-lg bg-stone-500 text-stone-100 ${
                 currentCategory === category.name
                   ? "bg-stone-900 text-stone-100"
-                  : "hover:bg-stone-500"
+                  : "hover:bg-stone-900"
               }`}
             >
               {category.name}

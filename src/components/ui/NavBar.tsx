@@ -53,7 +53,7 @@ const NavBar = () => {
         <div className="relative px-4 sm:px-6 flex justify-between items-center h-16">
           <div className="flex items-center">
             <Link href="/" className="font-bold text-xl text-stone-200 hover:text-stone-500">
-              STORE
+              DEMO STORE
             </Link>
             <nav className="hidden md:flex ml-10 space-x-4">
               {routes.map((route) => (
@@ -83,25 +83,25 @@ const NavBar = () => {
             
             {session?.user ? (
               <div className="relative group">
-                <button className="flex items-center space-x-1">
+                <button className="flex items-center space-x-1 cursor-pointer">
                   <User size={20} />
                 </button>
-                <div className="absolute right-0 top-full mt-2 w-40 bg-stone-200 border shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+                <div className="absolute right-0 top-full mt-2 w-40 bg-stone-500 border-2 border-stone-100 shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
                   <div className="py-1">
-                    <Link href="/account" className="block px-4 py-2 text-sm text-stone-500 hover:bg-stone-100">
+                    <Link href="/account" className="block px-4 py-2 text-sm text-stone-100 hover:bg-stone-900">
                       My Account
                     </Link>
-                    <Link href="/account/orders" className="block px-4 py-2 text-sm text-stone-500 hover:bg-stone-100">
+                    <Link href="/account/orders" className="block px-4 py-2 text-sm text-stone-100 hover:bg-stone-900">
                       My Orders
                     </Link>
                     {isAdmin && (
-                      <Link href="/admin" className="block px-4 py-2 text-sm text-stone-500 hover:bg-stone-100 cursor-pointer">
+                      <Link href="/admin" className="block px-4 py-2 text-sm text-stone-100 hover:bg-stone-900 cursor-pointer">
                         Admin
                       </Link>
                     )}
                     <button
                       onClick={() => signOut()}
-                      className="block w-full text-left px-4 py-2 text-sm text-stone-500 hover:bg-stone-100 cursor-pointer"
+                      className="block w-full text-left px-4 py-2 text-sm text-stone-100 hover:bg-stone-900 cursor-pointer"
                     >
                       Sign Out
                     </button>

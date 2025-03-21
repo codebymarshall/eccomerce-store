@@ -20,8 +20,8 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">{product.name}</h1>
-        <p className="text-gray-500 mt-2">{product.category.name}</p>
+        <h1 className="text-3xl font-bold text-stone-500">{product.name}</h1>
+        <p className="text-stone-500 mt-2">{product.category.name}</p>
       </div>
 
       {/* Rating */}
@@ -32,24 +32,24 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
               key={i}
               size={16}
               className={`${
-                i < averageRating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
+                i < averageRating ? "fill-yellow-400 text-yellow-400" : "text-stone-300"
               }`}
             />
           ))}
         </div>
-        <span className="text-sm text-gray-500">
+        <span className="text-sm text-stone-500">
           ({product.reviews.length} reviews)
         </span>
       </div>
 
       {/* Price */}
-      <div className="text-2xl font-bold">
+      <div className="text-2xl font-bold text-stone-700">
         {formatPrice(product.price)}
       </div>
 
       {/* Description */}
       <div className="prose max-w-none">
-        <p className="text-gray-600">{product.description}</p>
+        <p className="text-stone-600">{product.description}</p>
       </div>
 
       {/* Stock Status */}

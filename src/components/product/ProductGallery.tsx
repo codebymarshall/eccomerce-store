@@ -30,7 +30,7 @@ const ProductGallery = ({ images }: ProductGalleryProps) => {
               key={index}
               onClick={() => setSelectedImage(index)}
               className={`aspect-square relative rounded-lg overflow-hidden ${
-                selectedImage === index ? "ring-2 ring-black" : ""
+                selectedImage === index ? "ring-2 ring-stone-500" : ""
               }`}
             >
               <Image

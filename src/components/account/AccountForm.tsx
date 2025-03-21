@@ -61,9 +61,9 @@ export default function AccountForm({ user }: AccountFormProps) {
   return (
     <Container>
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-2xl font-bold mb-6 text-stone-500">Account Profile</h1>
+        <h1 className="text-2xl font-bold mb-6 text-stone-800">Account Profile</h1>
 
-        <div className="bg-stone-100 border rounded-lg p-6 opacity-90">
+        <div className="bg-stone-900 border rounded-lg p-6">
           {error && (
             <div className="mb-4 p-2 bg-red-100 border border-red-400 text-red-700 rounded">
               {error}
@@ -74,7 +74,7 @@ export default function AccountForm({ user }: AccountFormProps) {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-stone-500"
+                className="block text-sm font-medium text-stone-100"
               >
                 Email
               </label>
@@ -84,14 +84,14 @@ export default function AccountForm({ user }: AccountFormProps) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={!isEditing}
-                className="mt-1 block w-full rounded-md text-stone-500 border-stone-300 shadow-sm focus:border-stone-900 focus:ring-stone-900 sm:text-sm"
+                className="mt-1 block w-full rounded-md text-stone-100 border-stone-300 shadow-sm focus:border-stone-900 focus:ring-stone-900 sm:text-sm"
               />
             </div>
 
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-stone-500"
+                className="block text-sm font-medium text-stone-100"
               >
                 Name
               </label>
@@ -101,7 +101,7 @@ export default function AccountForm({ user }: AccountFormProps) {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 disabled={!isEditing}
-                className="mt-1 block w-full rounded-md text-stone-500 border-stone-300 shadow-sm focus:border-stone-900 focus:ring-stone-900 sm:text-sm"
+                className="mt-1 block w-full rounded-md text-stone-100 border-stone-300 shadow-sm focus:border-stone-900 focus:ring-stone-900 sm:text-sm"
               />
             </div>
 

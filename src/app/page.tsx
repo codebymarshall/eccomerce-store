@@ -54,7 +54,6 @@ export default async function Home() {
             quality={90}
           />
         </div>
-        
         <div className="absolute inset-0 flex items-center justify-center p-4 pt-16 sm:p-6 md:p-8">
           <Container className="w-full">
             <div className="flex flex-col items-center justify-between text-center bg-stone-100/80 backdrop-blur-sm p-3 sm:p-4 md:p-6 rounded-lg shadow-md max-w-lg md:max-w-2xl mx-auto">
