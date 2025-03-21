@@ -22,7 +22,7 @@ const Footer = () => {
                   Clothing
                 </Link>
                 <Link href="/products?category=Home%20%26%20Garden" className="text-sm text-stone-200 hover:text-stone-500 transition">
-                  Home & Garden
+                  Home &amp; Garden
                 </Link>
               </div>
             </div>
@@ -89,7 +89,7 @@ const Footer = () => {
           </div>
           <div className="border-t pt-8 mt-8">
             <p className="text-center text-xs text-stone-200">
-              &copy; {new Date().getFullYear()} Your Store Name. All rights reserved.
+              &copy; {new Date().getFullYear()} DEMO STORE. All rights reserved.
             </p>
           </div>
         </div>

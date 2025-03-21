@@ -45,6 +45,11 @@ const NavBar = () => {
       href: "/contact",
       active: pathname === "/contact",
     },
+    {
+      label: "Return to portfolio",
+      href: "https://jonathanmarshall.xyz",
+      active: pathname === "/jonathanmarshall.xyz",
+    },
   ];
 
   return (
